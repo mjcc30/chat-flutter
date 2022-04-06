@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firstapplicationsqyavril2022/model/utilisateur.dart';
 
 
 class FirestoreHelper{
@@ -42,9 +43,14 @@ class FirestoreHelper{
 
   }
 
-  String getIdenfiant(){
-    return auth.currentUser!.uid;
+  Future <String> getIdenfiant() async{
+    return await auth.currentUser!.uid;
     
+  }
+
+  Future <Utilisateur> getUtilisateur(String uid) async {
+    DocumentSnapshot snapshot = await fire_user.doc(uid).get();
+    return Utilisateur(snapshot);
   }
 
 

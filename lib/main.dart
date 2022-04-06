@@ -1,5 +1,6 @@
 import 'package:firstapplicationsqyavril2022/dashboard.dart';
 import 'package:firstapplicationsqyavril2022/fonctions/firestoreHelper.dart';
+import 'package:firstapplicationsqyavril2022/library/constants.dart';
 import 'package:firstapplicationsqyavril2022/registerPage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -58,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
 //Variable
 late String mail;
 late String password;
+late String uid;
 
   @override
   Widget build(BuildContext context) {
@@ -210,9 +212,17 @@ late String password;
          onPressed: (){
           FirestoreHelper().connect(mail, password).then((value){
             print("connexion réussie");
+            setState(() {
+              FirestoreHelper().getIdenfiant().then((value){
+                uid = value;
+                FirestoreHelper().getUtilisateur(uid).then((value){
+                  monProfil = value;
+                });
+              });
+            });
             Navigator.push(context, MaterialPageRoute(
               builder: (context){
-                return DashBoard(uid: FirestoreHelper().getIdenfiant());
+                return DashBoard(uid: uid);
               }
               ));
 

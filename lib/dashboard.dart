@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firstapplicationsqyavril2022/fonctions/firestoreHelper.dart';
 import 'package:firstapplicationsqyavril2022/model/utilisateur.dart';
+import 'package:firstapplicationsqyavril2022/widgets/myDrawer.dart';
 import 'package:flutter/material.dart';
 
 class DashBoard extends StatefulWidget{
@@ -23,6 +24,13 @@ class DashBoardState extends State<DashBoard>{
     print(widget.uid);
    
     return Scaffold(
+      drawer: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width/1.5,
+        color: Colors.white,
+        child: myDrawer(),
+      ),
+
       appBar: AppBar(
         title: const Text("Ma Nouvelle page"),
       ),
