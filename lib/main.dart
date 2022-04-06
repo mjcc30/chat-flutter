@@ -1,4 +1,6 @@
 import 'package:firstapplicationsqyavril2022/dashboard.dart';
+import 'package:firstapplicationsqyavril2022/fonctions/firestoreHelper.dart';
+import 'package:firstapplicationsqyavril2022/registerPage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -206,15 +208,39 @@ late String password;
            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(10))
          ),
          onPressed: (){
-           Navigator.push(context, MaterialPageRoute(
-             builder: (context){
-               return DashBoard(mail: mail,);
-             }
-             ));
+          FirestoreHelper().connect(mail, password).then((value){
+            print("connexion réussie");
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context){
+                return DashBoard(mail: mail);
+              }
+              ));
+
+          }).onError((error, stackTrace){
+            print("Problème de connexion");
+          });
 
          }, 
-         child: const Text("Connexion")
+         child: const Text("Connexion"),
+
+
+
+         ),
+
+         const SizedBox(height: 10,),
+
+         InkWell(
+           child: const Text("Inscription",style: TextStyle(color: Colors.blue),),
+           onTap: (){
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context){
+                  return registerPage();
+                }
+                ));
+           },
          )
+
+         
     ],
 
   );

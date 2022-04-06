@@ -29,12 +29,20 @@ class FirestoreHelper{
 
   //Méthode pour la connexion
 
+  Future connect(String mail, String password) async{
+    UserCredential resultat = await auth.signInWithEmailAndPassword(email: mail, password: password);
+  }
+
 
 
   //Méthode pour enregistrer dans la base de donnée
   addUser(String uid,Map<String,dynamic> map){
     fire_user.doc(uid).set(map);
 
+  }
+
+  getIdenfiant(String uid){
+    
   }
 
 
