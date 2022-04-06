@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -51,6 +53,14 @@ class FirestoreHelper{
   Future <Utilisateur> getUtilisateur(String uid) async {
     DocumentSnapshot snapshot = await fire_user.doc(uid).get();
     return Utilisateur(snapshot);
+  }
+
+
+  Future <String> stockage(String name,Uint8List bytes) async{
+    TaskSnapshot download = await FirebaseStorage.instance.ref("profil/$name").putData(bytes);
+    String chemin = await download.ref.getDownloadURL();
+    return chemin;
+
   }
 
 

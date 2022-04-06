@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:firstapplicationsqyavril2022/fonctions/firestoreHelper.dart';
 import 'package:firstapplicationsqyavril2022/library/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -30,6 +31,9 @@ class myDrawerState extends State<myDrawer>{
       setState(() {
         nomImage = result.files.first.name;
         dataImage = result.files.first.bytes;
+        FirestoreHelper().stockage(nomImage!, dataImage!).then((value){
+          cheminImage = value;
+        });
       });
     }
   }
