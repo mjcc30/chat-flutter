@@ -1,3 +1,4 @@
+import 'package:firstapplicationsqyavril2022/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -65,11 +66,17 @@ late String password;
     
         title: Text(widget.title),
       ),
-      body: Container(
+      body: Center(
+        child: Container(
         padding: const EdgeInsets.all(20),
-        child: bodyPage(),
+        child:  bodyPage(),
+        
+        
       )
-       // This trailing comma makes auto-formatting nicer for build methods.
+      ,
+      )
+      
+    
     );
   }
 
@@ -155,6 +162,7 @@ late String password;
       );
   */
   Column(
+    mainAxisAlignment: MainAxisAlignment.center,
     children: [
       TextField(
         decoration: InputDecoration(
@@ -195,6 +203,11 @@ late String password;
            shape: RoundedRectangleBorder(borderRadius:BorderRadius.circular(10))
          ),
          onPressed: (){
+           Navigator.push(context, MaterialPageRoute(
+             builder: (context){
+               return DashBoard(mail: mail,);
+             }
+             ));
 
          }, 
          child: const Text("Connexion")
