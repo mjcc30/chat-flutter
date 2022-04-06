@@ -4,9 +4,9 @@ import 'package:firstapplicationsqyavril2022/model/utilisateur.dart';
 import 'package:flutter/material.dart';
 
 class DashBoard extends StatefulWidget{
-  String mail;
+  String uid;
   
-  DashBoard({required  this.mail});
+  DashBoard({required  this.uid});
   
   
   @override
@@ -20,6 +20,7 @@ class DashBoard extends StatefulWidget{
 class DashBoardState extends State<DashBoard>{
   @override
   Widget build(BuildContext context) {
+    print(widget.uid);
    
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +33,7 @@ class DashBoardState extends State<DashBoard>{
 
   Widget bodyPage(){
     return StreamBuilder<QuerySnapshot>(
-      stream: FirestoreHelper().fire_user.snapshots(),
+      stream: FirestoreHelper().fire_user.where("UID",isEqualTo: widget.uid).snapshots(),
       builder: (context, snapshot){
         if(!snapshot.hasData){
           return const CircularProgressIndicator();
@@ -44,6 +45,7 @@ class DashBoardState extends State<DashBoard>{
             itemBuilder: (context,index){
               Utilisateur user = Utilisateur(documents[index]);
               return Card(
+                elevation: 5.0,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 child: ListTile(
 

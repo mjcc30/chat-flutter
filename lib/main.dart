@@ -212,7 +212,7 @@ late String password;
             print("connexion réussie");
             Navigator.push(context, MaterialPageRoute(
               builder: (context){
-                return DashBoard(mail: mail);
+                return DashBoard(uid: FirestoreHelper().getIdenfiant());
               }
               ));
 

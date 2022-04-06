@@ -14,6 +14,7 @@ class Utilisateur{
       Map<String,dynamic> map = snapshot.data() as Map<String,dynamic>;
       nom = map["NOM"];
       prenom = map["PRENOM"];
+      uid = map["UID"];
 
 
     }

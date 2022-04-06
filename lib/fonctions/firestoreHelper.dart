@@ -18,7 +18,8 @@ class FirestoreHelper{
     String uid = resultat.user!.uid;
     Map<String,dynamic> map = {
       "NOM":nom,
-      "PRENOM":prenom
+      "PRENOM":prenom,
+      "UID":uid
     };
     addUser(uid, map);
 
@@ -41,7 +42,8 @@ class FirestoreHelper{
 
   }
 
-  getIdenfiant(String uid){
+  String getIdenfiant(){
+    return auth.currentUser!.uid;
     
   }
 
