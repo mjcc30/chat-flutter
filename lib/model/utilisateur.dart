@@ -5,6 +5,7 @@ class Utilisateur{
     late String uid;
     late String nom;
     late String prenom;
+    String? logo;
 
 
 
@@ -15,6 +16,7 @@ class Utilisateur{
       nom = map["NOM"];
       prenom = map["PRENOM"];
       uid = map["UID"];
+      logo = map["LOGO"];
 
 
     }

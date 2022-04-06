@@ -27,7 +27,7 @@ class DashBoardState extends State<DashBoard>{
       drawer: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width/1.5,
-        color: Colors.white,
+        color: Colors.blue,
         child: myDrawer(),
       ),
 
