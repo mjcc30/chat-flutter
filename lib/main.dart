@@ -2,6 +2,7 @@ import 'package:firstapplicationsqyavril2022/dashboard.dart';
 import 'package:firstapplicationsqyavril2022/fonctions/firestoreHelper.dart';
 import 'package:firstapplicationsqyavril2022/library/constants.dart';
 import 'package:firstapplicationsqyavril2022/registerPage.dart';
+import 'package:firstapplicationsqyavril2022/widgets/background.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -73,15 +74,24 @@ late String uid;
     
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Container(
-        padding: const EdgeInsets.all(20),
-        child:  bodyPage(),
-        
-        
+      body: Stack(
+        children: [
+          Background(),
+          Center(
+            child: Container(
+              padding: const EdgeInsets.all(20),
+              child:  bodyPage(),
+
+
+            )
+            ,
+          )
+
+        ],
       )
-      ,
-      )
+
+
+
       
     
     );

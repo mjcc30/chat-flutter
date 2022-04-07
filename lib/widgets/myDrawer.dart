@@ -1,8 +1,11 @@
+
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:firstapplicationsqyavril2022/fonctions/firestoreHelper.dart';
 import 'package:firstapplicationsqyavril2022/library/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class myDrawer extends StatefulWidget{
@@ -21,6 +24,75 @@ class myDrawerState extends State<myDrawer>{
   Uint8List? dataImage;
 
 
+  boiteDialog(){
+    showDialog(
+        context: context,
+        builder: (context)
+        {
+          if(Platform.isIOS){
+            return CupertinoAlertDialog(
+              title: Text("Souhaitez-vous enregistrer l'image"),
+              content: Image.memory(dataImage!),
+              actions: [
+                ElevatedButton(
+                    onPressed: (){
+                      Navigator.pop(context);
+                    },
+                    child: Text("Annuler")
+                ),
+                ElevatedButton(
+                    onPressed: (){
+                      FirestoreHelper().stockage(nomImage!, dataImage!).then((value){
+                        setState(() {
+                          cheminImage = value;
+                          monProfil.logo = cheminImage;
+                        });
+                      });
+                      Map<String,dynamic> map ={
+                        "LOGO":cheminImage
+                      };
+                      FirestoreHelper().updateUser(monProfil.uid, map);
+                    },
+                    child: Text("Enregistrer")
+                ),
+              ],
+            );
+          }
+          else
+            {
+              return AlertDialog(
+              title: Text("Souhaitez-vous enregistrer l'image"),
+                content: Image.memory(dataImage!),
+                actions: [
+                  ElevatedButton(
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                      child: Text("Annuler")
+                  ),
+                  ElevatedButton(
+                      onPressed: (){
+                        FirestoreHelper().stockage(nomImage!, dataImage!).then((value){
+                          setState(() {
+                            cheminImage = value;
+                            monProfil.logo = cheminImage;
+                          });
+                        });
+                        Map<String,dynamic> map ={
+                          "LOGO":cheminImage
+                        };
+                        FirestoreHelper().updateUser(monProfil.uid, map);
+                      },
+                      child: Text("Enregistrer")
+                  ),
+                ],
+              );
+            }
+        }
+    );
+  }
+
+
   recuperImage() async{
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.image,
@@ -31,9 +103,8 @@ class myDrawerState extends State<myDrawer>{
       setState(() {
         nomImage = result.files.first.name;
         dataImage = result.files.first.bytes;
-        FirestoreHelper().stockage(nomImage!, dataImage!).then((value){
-          cheminImage = value;
-        });
+        boiteDialog();
+
       });
     }
   }

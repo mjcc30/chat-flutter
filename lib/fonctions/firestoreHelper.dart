@@ -45,6 +45,11 @@ class FirestoreHelper{
 
   }
 
+  updateUser(String uid, Map<String,dynamic> map){
+    fire_user.doc(uid).update(map);
+
+  }
+
   Future <String> getIdenfiant() async{
     return await auth.currentUser!.uid;
     
