@@ -1,4 +1,4 @@
 
 import 'package:firstapplicationsqyavril2022/model/utilisateur.dart';
 
-late Utilisateur monProfil;
+Utilisateur monProfil = Utilisateur.vide();

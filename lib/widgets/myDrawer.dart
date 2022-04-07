@@ -25,7 +25,7 @@ class myDrawerState extends State<myDrawer>{
 
 
   boiteDialog(){
-    showDialog(
+    return showDialog(
         context: context,
         builder: (context)
         {
@@ -46,12 +46,17 @@ class myDrawerState extends State<myDrawer>{
                         setState(() {
                           cheminImage = value;
                           monProfil.logo = cheminImage;
+
+                          Map<String,dynamic> map ={
+                            "LOGO":cheminImage
+                          };
+                          FirestoreHelper().updateUser(monProfil.uid, map);
+
+
                         });
                       });
-                      Map<String,dynamic> map ={
-                        "LOGO":cheminImage
-                      };
-                      FirestoreHelper().updateUser(monProfil.uid, map);
+                      Navigator.pop(context);
+
                     },
                     child: Text("Enregistrer")
                 ),
@@ -104,7 +109,6 @@ class myDrawerState extends State<myDrawer>{
         nomImage = result.files.first.name;
         dataImage = result.files.first.bytes;
         boiteDialog();
-
       });
     }
   }
@@ -150,6 +154,7 @@ class myDrawerState extends State<myDrawer>{
             ),
           ),
           onTap: (){
+            recuperImage();
 
           },
         ),

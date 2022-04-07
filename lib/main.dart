@@ -221,12 +221,20 @@ late String uid;
          ),
          onPressed: (){
           FirestoreHelper().connect(mail, password).then((value){
-            print("connexion réussie");
+
             setState(() {
               FirestoreHelper().getIdenfiant().then((value){
-                uid = value;
+                setState(() {
+                  uid = value;
+                });
+
                 FirestoreHelper().getUtilisateur(uid).then((value){
-                  monProfil = value;
+                  setState(() {
+
+
+                    monProfil = value;
+                  });
+
                 });
               });
             });

@@ -5,9 +5,12 @@ class Custom extends CustomClipper<Path>{
   Path getClip(Size size) {
     // TODO: implement getClip
     Path path = Path();
+
     path.lineTo(0, size.height/3);
     path.lineTo(size.width, size.height/4);
     path.lineTo(size.width, 0);
+
+
     path.close();
 
     return path;

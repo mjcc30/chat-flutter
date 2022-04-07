@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firstapplicationsqyavril2022/fonctions/firestoreHelper.dart';
+import 'package:firstapplicationsqyavril2022/library/constants.dart';
 import 'package:firstapplicationsqyavril2022/model/utilisateur.dart';
 import 'package:firstapplicationsqyavril2022/widgets/myDrawer.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class DashBoard extends StatefulWidget{
 class DashBoardState extends State<DashBoard>{
   @override
   Widget build(BuildContext context) {
-    print(widget.uid);
+    print(monProfil.uid);
    
     return Scaffold(
       drawer: Container(

@@ -21,6 +21,13 @@ class Utilisateur{
 
     }
 
+    Utilisateur.vide(){
+      uid="";
+      nom="";
+      prenom="";
+      logo="";
+    }
+
 
 
 
