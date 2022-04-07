@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firstapplicationsqyavril2022/detailPage.dart';
 import 'package:firstapplicationsqyavril2022/fonctions/firestoreHelper.dart';
 import 'package:firstapplicationsqyavril2022/library/constants.dart';
 import 'package:firstapplicationsqyavril2022/model/utilisateur.dart';
@@ -42,7 +43,7 @@ class DashBoardState extends State<DashBoard>{
 
   Widget bodyPage(){
     return StreamBuilder<QuerySnapshot>(
-      stream: FirestoreHelper().fire_user.where("UID",isEqualTo: widget.uid).snapshots(),
+      stream: FirestoreHelper().fire_user.snapshots(),
       builder: (context, snapshot){
         if(!snapshot.hasData){
           return const CircularProgressIndicator();
@@ -57,8 +58,30 @@ class DashBoardState extends State<DashBoard>{
                 elevation: 5.0,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 child: ListTile(
+                  leading: Hero(
+                      tag: user.uid,
+                      child: Container(
+                        height : 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                            shape:BoxShape.circle,
+                            image: DecorationImage(
+                                image : (user.logo!=null)?NetworkImage(user.logo!):NetworkImage("https://firebasestorage.googleapis.com/v0/b/projetsqyavril2022.appspot.com/o/noImage.png?alt=media&token=dc26627a-5c9f-491b-8529-c8b44bfad00a")
+                            )
+                        ),
+                      ),
+                  ),
 
-                title: Text("${user.prenom} ${user.nom}")
+
+
+                title: Text("${user.prenom} ${user.nom}"),
+                  onTap: (){
+                  Navigator.push(context,MaterialPageRoute(
+                    builder:(context){
+                      return detailPage(user:user);
+                    }
+                  ));
+                  },
 
               ),
 

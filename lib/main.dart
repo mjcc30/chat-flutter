@@ -56,11 +56,31 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateMixin{
 //Variable
 late String mail;
 late String password;
 late String uid;
+late Animation animation;
+late AnimationController controller;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = AnimationController(
+        vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+    controller.repeat();
+
+    animation = Tween<double>(begin: 150, end: 200).animate(controller);
+  }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -181,6 +201,31 @@ late String uid;
   Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
+      AnimatedBuilder(
+          animation: animation,
+          builder: (context,child)
+          {
+            return Transform.scale(
+              scale: controller.value,
+              child: child,
+
+            );
+          },
+        child: Container(
+          height: 250,
+          width: 250,
+          decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage("assets/alien_gangsta_by_raben_aas.jpg"),
+                fit: BoxFit.fill,
+              )
+          ),
+        ),
+      ),
+
+
+      const SizedBox(height: 10,),
       TextField(
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.mail),
