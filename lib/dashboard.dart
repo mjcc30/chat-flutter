@@ -54,6 +54,9 @@ class DashBoardState extends State<DashBoard>{
             itemCount: documents.length,
             itemBuilder: (context,index){
               Utilisateur user = Utilisateur(documents[index]);
+              if(monProfil.uid == user.uid){
+                return Container();
+              }
               return Card(
                 elevation: 5.0,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

@@ -70,8 +70,11 @@ late AnimationController controller;
     controller = AnimationController(
         vsync: this,
       duration: const Duration(seconds: 3),
+      reverseDuration: const Duration(seconds :5),
+
     );
     controller.repeat();
+
 
     animation = Tween<double>(begin: 150, end: 200).animate(controller);
   }
@@ -210,6 +213,7 @@ late AnimationController controller;
               child: child,
 
             );
+
           },
         child: Container(
           height: 250,
