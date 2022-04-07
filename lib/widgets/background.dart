@@ -10,7 +10,9 @@ class Background extends StatefulWidget{
 
 }
 
-class backgroundState extends State<Background>{
+class backgroundState extends State<Background> with SingleTickerProviderStateMixin{
+  late Animation animation;
+  late AnimationController controller;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -22,7 +24,11 @@ class backgroundState extends State<Background>{
 
   Widget bodyPage(){
     return ClipPath(
-      clipper: Custom(),
+      clipper:
+
+
+
+      Custom(),
       child: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,

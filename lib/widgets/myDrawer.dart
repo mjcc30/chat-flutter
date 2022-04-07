@@ -17,11 +17,18 @@ class myDrawer extends StatefulWidget{
 
 }
 
-class myDrawerState extends State<myDrawer>{
+class myDrawerState extends State<myDrawer> with SingleTickerProviderStateMixin{
   //variable
   String? cheminImage;
   String? nomImage;
   Uint8List? dataImage;
+  bool click = false;
+
+  late Animation animation;
+  late AnimationController controller;
+
+
+
 
 
   boiteDialog(){
@@ -81,12 +88,13 @@ class myDrawerState extends State<myDrawer>{
                           setState(() {
                             cheminImage = value;
                             monProfil.logo = cheminImage;
+                            Map<String,dynamic> map ={
+                              "LOGO":cheminImage
+                            };
+                            FirestoreHelper().updateUser(monProfil.uid, map);
                           });
                         });
-                        Map<String,dynamic> map ={
-                          "LOGO":cheminImage
-                        };
-                        FirestoreHelper().updateUser(monProfil.uid, map);
+
                       },
                       child: Text("Enregistrer")
                   ),
@@ -111,6 +119,29 @@ class myDrawerState extends State<myDrawer>{
         boiteDialog();
       });
     }
+  }
+
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = AnimationController(
+        vsync: this,
+      duration: Duration(seconds: 2),
+      reverseDuration: Duration(seconds: 5)
+
+    )..repeat();
+    animation = Tween<double>(begin: 0,end: 150).animate(controller);
+  }
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -142,9 +173,11 @@ class myDrawerState extends State<myDrawer>{
 
         //logo
         InkWell(
-          child: Container(
-            height: 150,
-            width: 150,
+          child: AnimatedContainer(
+            duration: Duration(seconds: 2),
+            curve: Curves.easeOutSine,
+            height: (click)?50:150,
+            width: (click)?50:150,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 image: DecorationImage(
@@ -154,7 +187,11 @@ class myDrawerState extends State<myDrawer>{
             ),
           ),
           onTap: (){
+
             recuperImage();
+            setState(() {
+              click =!click;
+            });
 
           },
         ),
